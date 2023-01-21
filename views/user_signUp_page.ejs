@@ -1,0 +1,20 @@
+<h1>
+    Sign Up 
+</h1>
+
+<!-- form for user sign up  -->
+<form action="/user/create-user" method="POST">
+    <label for="name">Name</label>
+    <input type="text" name="name" id="name" required>
+
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" required>
+
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" required>
+
+    <label for="cnf_password">Confirm Password</label>
+    <input type="password" name="cnf_password" id="cnf_password" required>
+
+    <input type="submit" value="Sign Up">
+</form>
