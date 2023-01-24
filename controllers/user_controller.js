@@ -6,21 +6,41 @@ const User = require('../models/user_schema');
 // controller for rendering user page
 module.exports.home=function(req,res){
     return res.render('user',{
-        title:"Social | User Profile"
+        title:"Social | User Page"
     });
+}
+
+
+// rendering user's profile page after signing in
+module.exports.user_profile=function(req,res){
+    return res.render('user_profile',{
+        title:"Profile page | Social"
+    })
 }
 
 
 // controller for rendering sign in page
 module.exports.signin=function(req,res){
+
+    // if user is already signed in then redirect to user_profile page
+    if(req.isAuthenticated()){
+        return res.redirect('/user/user-profile');
+    }
+
     return res.render('user_signIn_page',{
-        title:"Social | SignUp"
+        title:"Social | SignIn"
     });
 }
 
 
 // controller for rendering sign up page
 module.exports.signup=function(req,res){
+    
+    // if user is already signed in then redirect to user_profile page
+    if(req.isAuthenticated()){
+        return res.redirect('/user/user-profile');
+    }
+    
     return res.render('user_signUp_page',{
         title:"Social | SignUp"
     });
@@ -67,4 +87,11 @@ module.exports.create_user = function(req,res){
             return res.redirect('back');
         }
     })
+}
+
+
+// to sign in using passport library
+module.exports.create_session=function(req,res){
+    // redirecting to user page after signing in 
+    return res.redirect('/user/user-profile');
 }
