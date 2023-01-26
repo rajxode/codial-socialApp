@@ -15,6 +15,9 @@ const session=require('express-session');
 const passport=require('passport');
 const passportLocal=require('./config/passport_local_strategy');
 
+// mongo store for storing session / cookie
+const MongoStore = require('connect-mongo');
+
 
 // creating app variable
 const app = express();
@@ -49,7 +52,9 @@ app.use(session({
     // expiration duration for cookie
     cookie:{
         maxAge:(1000 * 60 * 100)
-    }
+    },
+    // to store session cookie
+    store: MongoStore.create({ mongoUrl: 'mongodb://127.0.0.1/SocialMedia_DB' }) 
 }));
 
 app.use(passport.initialize());
