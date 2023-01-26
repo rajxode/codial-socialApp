@@ -95,3 +95,16 @@ module.exports.create_session=function(req,res){
     // redirecting to user page after signing in 
     return res.redirect('/user/user-profile');
 }
+
+
+// to sign out 
+module.exports.signout=function(req,res){
+    // signin out from page
+    req.logout(function(err) {
+        // incase of error
+        if (err) { return next(err); }
+
+        // if no error then redirect to the signin page
+        return res.redirect('/user/signin');
+      });
+}
