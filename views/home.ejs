@@ -2,4 +2,45 @@
 
 <h1>Hello</h1>
 
- 
+ <section id="post-section">
+
+    <!-- checking if user is logged in  -->
+    <% if (locals.user) { %>
+
+        <!-- form to get user data -->
+        <form action="/post/create" id="post-feed" method="post">
+            <textarea name="content" cols="30" rows="3" placeholder="Type here..."></textarea>
+            <input type="submit" value="Post">
+        </form>
+
+
+        <!-- to display posts -->
+        <div id="post_container">
+
+            <ul>
+
+                <!-- displaying all the posts -->
+                <% for (post of posts) { %>
+
+                    <li>
+                        <p>
+                            <!-- content of post -->
+                            <%= post.content %>
+                        </p>
+
+                        <p>
+                            <!-- user who posted -->
+                            <%= post.user.name %>
+                        </p>
+                    </li>
+                
+                <% } %>
+                
+            </ul>
+
+        </div>
+
+    <% } %>
+
+    
+ </section>
