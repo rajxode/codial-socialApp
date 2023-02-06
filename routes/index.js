@@ -19,5 +19,8 @@ router.use('/user',require('./user'));
 // importing post's router 
 router.use('/post',require('./post'));
 
+// importing comment's router
+router.use('/comment',require('./comment'));
+
 // exporting the router for outside use
 module.exports = router;

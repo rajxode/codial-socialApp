@@ -11,7 +11,14 @@ const postSchema = new mongoose.Schema({
     user:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'User',
-    }
+    },
+    // getting all the comments id's made on the post
+    comment:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'Comment'
+        }
+    ]
 },{
     // to get the time of creation and update
     timestamps:true
