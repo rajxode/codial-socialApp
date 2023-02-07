@@ -14,5 +14,8 @@ const commentController = require('../controllers/comments_controller');
 // calling controller and checking authentication of user
 router.post('/create',passport.checkAuthentication,commentController.create);
 
+// calling controller and checking authentication of user
+router.get('/destroy/:id',passport.checkAuthentication,commentController.destroy);
+
 // exporting router for use
 module.exports = router;

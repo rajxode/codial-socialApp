@@ -37,3 +37,29 @@ module.exports.create=function(req,res){
         
     })
 }
+
+
+
+// to delete a comment
+module.exports.destroy = function(req,res){
+    // finding comment
+    Comment.findById(req.params.id,function(err,comment){
+        if(err){
+            console.log('Error in finding the comment');
+            return;
+        }
+
+        if(comment.user == req.user.id){
+
+            let postId=comment.post.id;
+
+            comment.remove();
+            Post.findByIdAndUpdate(postId,{$pull:{comments:req.params.id}},function(err,post){
+                return res.redirect('back');
+            });
+
+        }else{
+            return res.redirect('back');
+        }
+    })
+}
