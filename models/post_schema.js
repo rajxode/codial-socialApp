@@ -13,7 +13,7 @@ const postSchema = new mongoose.Schema({
         ref:'User',
     },
     // getting all the comments id's made on the post
-    comment:[
+    comments:[
         {
             type:mongoose.Schema.Types.ObjectId,
             ref:'Comment'

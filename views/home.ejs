@@ -23,6 +23,13 @@
                 <% for (post of posts) { %>
 
                     <li>
+                        <!-- showing delete button only when the authorized person logged in  -->
+                        <% if (locals.user && locals.user.id == post.user.id) { %>
+
+                            <!-- to delete a post -->
+                            <a href="/post/destroy/<%= post.id %>">X</a>
+
+                        <% } %>
                         <p>
                             <!-- content of post -->
                             <%= post.content %>
@@ -33,8 +40,12 @@
                             <%= post.user.name %>
                         </p>
 
+
+                        <!-- for comments on a post -->
                         <div class="post-comments">
 
+
+                            <!-- input section for writing a comment -->
                             <% if (locals.user) { %>
 
                                 <form action="/comment/create" method="post">
@@ -44,6 +55,32 @@
                                 </form>
 
                             <% } %>
+
+
+                            <!-- list of comments on a post -->
+                            <div class="comment-list">
+
+                                <ul>
+
+                                    <!-- iterating over the list of comments on a post -->
+                                    <% for (comment of post.comments) { %>
+
+                                        <li>
+                                            <p>
+                                                <!-- content of the comment -->
+                                                <%= comment.content %>
+                                            </p>
+
+                                            <p>
+                                                <!-- user who commented  -->
+                                                <%= comment.user.name %>
+                                            </p>
+                                        </li>
+
+                                     <% } %>   
+                                </ul>
+
+                            </div>
 
                         </div>
 

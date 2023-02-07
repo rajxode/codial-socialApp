@@ -26,8 +26,8 @@ module.exports.create=function(req,res){
                     return;
                 }
 
-                // adding comment in the comment array of post
-                post.comment.push(comment);
+                // adding comment in the comments array of post
+                post.comments.push(comment);
                 // saving post (updating)
                 post.save();
 

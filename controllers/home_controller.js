@@ -5,7 +5,15 @@ const Post = require('../models/post_schema');
 module.exports.home= function(req,res){
 
     // finding all the posts in database and populating its data
-    Post.find({}).populate('user').exec(function(err,posts){
+    Post.find({})
+    .populate('user')
+    .populate({
+        // populating comments data and user who commented
+        path:'comments',
+        populate: {
+            path:'user'
+        }
+    }).exec(function(err,posts){
         
         // if error in finding 
         if(err){
