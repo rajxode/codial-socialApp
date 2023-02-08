@@ -14,7 +14,7 @@ const userController = require('../controllers/user_controller');
 router.get('/',userController.home);
 
 // checking whether user is signed in or not before rendering the user_profile page
-router.get('/user-profile',passport.checkAuthentication,userController.user_profile);
+router.get('/user-profile/:id',passport.checkAuthentication,userController.user_profile);
 
 // sign in page
 router.get('/signin',userController.signin);

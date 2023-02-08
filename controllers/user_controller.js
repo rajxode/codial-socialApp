@@ -13,9 +13,12 @@ module.exports.home=function(req,res){
 
 // rendering user's profile page after signing in
 module.exports.user_profile=function(req,res){
-    return res.render('user_profile',{
-        title:"Profile page | Social"
-    })
+    User.findById(req.params.id,function(err,user){
+        return res.render('user_profile',{
+            title:"Profile page | Social",
+            profile_user:user
+        })
+    });
 }
 
 
@@ -92,8 +95,8 @@ module.exports.create_user = function(req,res){
 
 // to sign in using passport library
 module.exports.create_session=function(req,res){
-    // redirecting to user page after signing in 
-    return res.redirect('/user/user-profile');
+    // redirecting to home page after signing in 
+    return res.redirect('/');
 }
 
 

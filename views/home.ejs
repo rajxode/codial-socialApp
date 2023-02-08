@@ -23,75 +23,9 @@
                 <% for (post of posts) { %>
 
                     <li>
-                        <!-- showing delete button only when the authorized person logged in  -->
-                        <% if (locals.user && locals.user.id == post.user.id) { %>
-
-                            <!-- to delete a post -->
-                            <a href="/post/destroy/<%= post.id %>">X</a>
-
-                        <% } %>
-                        <p>
-                            <!-- content of post -->
-                            <%= post.content %>
-                        </p>
-
-                        <p>
-                            <!-- user who posted -->
-                            <%= post.user.name %>
-                        </p>
-
-
-                        <!-- for comments on a post -->
-                        <div class="post-comments">
-
-
-                            <!-- input section for writing a comment -->
-                            <% if (locals.user) { %>
-
-                                <form action="/comment/create" method="post">
-                                    <input type="text" name="content" placeholder="Add Comment...">
-                                    <input type="hidden" name="post" value="<%= post._id %>">
-                                    <input type="submit" value="Add Comment">
-                                </form>
-
-                            <% } %>
-
-
-                            <!-- list of comments on a post -->
-                            <div class="comment-list">
-
-                                <ul>
-
-                                    <!-- iterating over the list of comments on a post -->
-                                    <% for (comment of post.comments) { %>
-
-                                        <li>
-
-                                            <!-- showing delete button only when the authorized person logged in  -->
-                                            <% if (locals.user && locals.user.id == comment.user.id) { %>
-
-                                                <!-- to delete a post -->
-                                                <a href="/comment/destroy/<%= comment.id %>">X</a>
-
-                                            <% } %>
-
-                                            <p>
-                                                <!-- content of the comment -->
-                                                <%= comment.content %>
-                                            </p>
-
-                                            <p>
-                                                <!-- user who commented  -->
-                                                <%= comment.user.name %>
-                                            </p>
-                                        </li>
-
-                                     <% } %>   
-                                </ul>
-
-                            </div>
-
-                        </div>
+                        
+                        <!-- adding post's partial file -->
+                        <%- include('_post') %>
 
                     </li>
                 
@@ -104,4 +38,24 @@
     <% } %>
 
     
+ </section>
+
+
+ <!-- to show all the users -->
+ <section id="friend_list">
+
+    <% if (locals.user) { %>
+
+        <h4>Friends</h4>
+
+        <!-- list of user in database -->
+        <% for (user of all_users) { %>
+            <p>
+                <!-- link of user's profile -->
+                <a href="/user/user-profile/<%= user.id %>"><%= user.name %></a>
+            </p>
+
+        <% } %>    
+
+    <% } %>
  </section>

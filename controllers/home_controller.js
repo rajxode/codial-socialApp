@@ -1,4 +1,5 @@
 const Post = require('../models/post_schema');
+const User = require('../models/user_schema');
 
 
 // rendering home page on website
@@ -21,11 +22,16 @@ module.exports.home= function(req,res){
             return;
         }
 
-        // rendering homepage and posts
-        return res.render('home',{
-            title:"Social Media",
-            posts:posts
-        });
+
+        User.find({},function(err,users){
+            // rendering homepage and posts
+            return res.render('home',{
+                title:"Social Media",
+                posts:posts,
+                all_users:users
+            });
+        })
+        
 
     });
     
