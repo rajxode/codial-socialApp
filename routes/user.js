@@ -22,6 +22,9 @@ router.get('/signin',userController.signin);
 // sign up page
 router.get('/signup',userController.signup);
 
+// to update user name and email
+router.post('/update/:id',passport.checkAuthentication,userController.update);
+
 // crating new user in sign up page
 router.post('/create-user',userController.create_user);
 

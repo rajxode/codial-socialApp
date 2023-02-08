@@ -14,10 +14,14 @@ module.exports.home=function(req,res){
 // rendering user's profile page after signing in
 module.exports.user_profile=function(req,res){
     User.findById(req.params.id,function(err,user){
+        if(!user){
+            return res.redirect('/');
+        }
+
         return res.render('user_profile',{
             title:"Profile page | Social",
             profile_user:user
-        })
+        });
     });
 }
 
@@ -47,6 +51,23 @@ module.exports.signup=function(req,res){
     return res.render('user_signUp_page',{
         title:"Social | SignUp"
     });
+}
+
+// controller to update user's name and email
+module.exports.update = function(req,res){
+    // match user's id in database
+    if(req.user.id = req.params.id){
+        User.findByIdAndUpdate(req.params.id,req.body,function(err,user){
+            if(err){
+                console.log('Error in updating the user');
+                return;
+            }
+
+            return res.redirect('back');
+        });
+    }else{
+        return res.status(401).send('Unauthorized');
+    }
 }
 
 
