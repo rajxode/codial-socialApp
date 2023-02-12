@@ -72,46 +72,37 @@ module.exports.update = function(req,res){
 
 
 // controller to create new user while signing up
-module.exports.create_user = function(req,res){
+module.exports.create_user = async function(req,res){
     
-    // checking password and confirm password 
-    if(req.body.password != req.body.cnf_password){
-        return res.redirect('back');
-    }
-
-
-    // finding other user with same email address
-    User.findOne({email:req.body.email},function(err,user){
-
-        // incase of an error
-        if(err){
-            console.log('Error in finding the user');
-            return;
+    try{
+        // checking password and confirm password 
+        if(req.body.password != req.body.cnf_password){
+            return res.redirect('back');
         }
+
+
+        // finding other user with same email address
+        let user = await User.findOne({email:req.body.email});
 
         // if no user find with the given email address
         if(!user){
 
             // creating new user with the given details via user
-            User.create(req.body , function(err,user){
+            await User.create(req.body);
 
-                // if there is any error
-                if(err){
-                    console.log('Error in creating the user');
-                    return;
-                }
-
-                // redirecting back to the sign in page after creating the user
-                return res.redirect('/user/signin');
-            })
+            // redirecting back to the sign in page after creating the user
+            return res.redirect('/user/signin');
         }
-
         // incase there is an user with the given email
         else{
             return res.redirect('back');
         }
-    })
+    }catch(err){
+        console.log('Error in creating new user',err);
+        return;
+    }
 }
+
 
 
 // to sign in using passport library
