@@ -7,13 +7,26 @@
     <title>
         <%= title %>
     </title>
+    <!-- include noty cdn for css and script-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+
+
     <link rel="stylesheet" href="/css/style.css">
+    <!-- for individual style sheets of different pages -->
     <%- style%>
 </head>
 <body>
 
     <!-- including header partial -->
     <%- include('_header') %>
+
+    <!-- for flash messages -->
+    <% if (flash.success && flash.success.length > 0) { %> 
+        
+        <%= flash.success %>
+        
+    <% } %>
     
     <!-- for the variable part of the website -->
     <%- body %>
@@ -21,6 +34,23 @@
     <!-- including footer partial -->
     <%- include('_footer') %>
 
+    <!-- for individual script files of different pages -->
     <%- script%>
+
+    <script>
+
+        <% if (flash.success && flash.success.length > 0) { %> 
+            
+            new Noty({
+                theme:'relax',
+                text: '<%= flash.success %>',
+                type:'success',
+                layout:'topRight',
+                timeout:1500
+            }).show();
+
+        <% } %>
+
+    </script>
 </body>
 </html>

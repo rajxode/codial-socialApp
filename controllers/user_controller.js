@@ -107,6 +107,8 @@ module.exports.create_user = async function(req,res){
 
 // to sign in using passport library
 module.exports.create_session=function(req,res){
+    // creating flash message for signin
+    req.flash('success','You have logged in successfully');
     // redirecting to home page after signing in 
     return res.redirect('/');
 }

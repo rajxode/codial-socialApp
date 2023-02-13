@@ -18,6 +18,10 @@ const passportLocal=require('./config/passport_local_strategy');
 // mongo store for storing session / cookie
 const MongoStore = require('connect-mongo');
 
+// flash messages package and middleware
+const flash = require('connect-flash');
+const myMware=require('./config/middleware');
+
 
 // creating app variable
 const app = express();
@@ -62,6 +66,10 @@ app.use(passport.session());
 
 // middleware to send user data to local
 app.use(passport.setAuthenticatedUser);
+
+// connect-flash middleware
+app.use(flash());
+app.use(myMware.setFlash);
 
 // setting up routes
 app.use('/',require('./routes'));
