@@ -1,57 +1,60 @@
 
+<li id="post-<%=post._id %>">
 
-<!-- showing delete button only when the authorized person logged in  -->
-<% if (locals.user && locals.user.id == post.user.id) { %>
+    <!-- showing delete button only when the authorized person logged in  -->
+    <% if (locals.user && locals.user.id == post.user.id) { %>
 
-    <!-- to delete a post -->
-    <a href="/post/destroy/<%= post.id %>">X</a>
-
-<% } %>
-<p>
-    <!-- content of post -->
-    <%= post.content %>
-</p>
-
-<p>
-    <!-- user who posted -->
-    <%= post.user.name %>
-</p>
-
-
-<!-- for comments on a post -->
-<div class="post-comments">
-
-
-    <!-- input section for writing a comment -->
-    <% if (locals.user) { %>
-
-        <form action="/comment/create" method="post">
-            <input type="text" name="content" placeholder="Add Comment...">
-            <input type="hidden" name="post" value="<%= post._id %>">
-            <input type="submit" value="Add Comment">
-        </form>
+        <!-- to delete a post -->
+        <a class="delete_post_button" href="/post/destroy/<%= post.id %>">X</a>
 
     <% } %>
+    <p>
+        <!-- content of post -->
+        <%= post.content %>
+    </p>
+
+    <p>
+        <!-- user who posted -->
+        <%= post.user.name %>
+    </p>
 
 
-    <!-- list of comments on a post -->
-    <div class="comment-list">
+    <!-- for comments on a post -->
+    <div class="post-comments">
 
-        <ul>
 
-            <!-- iterating over the list of comments on a post -->
-            <% for (comment of post.comments) { %>
+        <!-- input section for writing a comment -->
+        <% if (locals.user) { %>
 
-                <li>
+            <form action="/comment/create" method="post">
+                <input type="text" name="content" placeholder="Add Comment...">
+                <input type="hidden" name="post" value="<%= post._id %>">
+                <input type="submit" value="Add Comment">
+            </form>
 
-                    <!-- adding comments partial file -->
-                    <%- include('_comment') %>
+        <% } %>
 
-                </li>
 
-             <% } %>   
-        </ul>
+        <!-- list of comments on a post -->
+        <div class="comment-list">
+
+            <ul>
+
+                <!-- iterating over the list of comments on a post -->
+                <% for (comment of post.comments) { %>
+
+                    <li>
+
+                        <!-- adding comments partial file -->
+                        <%- include('_comment') %>
+
+                    </li>
+
+                <% } %>   
+            </ul>
+
+        </div>
 
     </div>
 
-</div>
+</li>

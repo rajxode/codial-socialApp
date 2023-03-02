@@ -7,6 +7,7 @@ module.exports.home= function(req,res){
 
     // finding all the posts in database and populating its data
     Post.find({})
+    .sort('-createdAt')
     .populate('user')
     .populate({
         // populating comments data and user who commented

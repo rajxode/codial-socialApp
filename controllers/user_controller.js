@@ -63,6 +63,7 @@ module.exports.update = function(req,res){
                 return;
             }
 
+            req.flash('success','Profile Updated !');
             return res.redirect('back');
         });
     }else{
@@ -77,6 +78,7 @@ module.exports.create_user = async function(req,res){
     try{
         // checking password and confirm password 
         if(req.body.password != req.body.cnf_password){
+            req.flash('error','Password does not match');
             return res.redirect('back');
         }
 
@@ -91,10 +93,12 @@ module.exports.create_user = async function(req,res){
             await User.create(req.body);
 
             // redirecting back to the sign in page after creating the user
+            req.flash('success','Welcome! You have created a new account');
             return res.redirect('/user/signin');
         }
         // incase there is an user with the given email
         else{
+            req.flash('error','email address already exists');
             return res.redirect('back');
         }
     }catch(err){
@@ -122,6 +126,7 @@ module.exports.signout=function(req,res){
         if (err) { return next(err); }
 
         // if no error then redirect to the signin page
+        req.flash('success','You have logged out successfully');
         return res.redirect('/user/signin');
       });
 }

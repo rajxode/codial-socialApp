@@ -6,16 +6,31 @@ const Comment =  require('../models/comment_schema');
 module.exports.create=async function(req,res){
     try{
         // creating post
-        await Post.create({
+        let post = await Post.create({
             // content and user id
             content:req.body.content,
             user:req.user._id
         });
+
+        // checking if it's an ajax request
+        if(req.xhr){
+            // returning json
+            return res.status(200).json({
+                data:{
+                    post:post
+                },
+                message:"Post created!"
+            });
+        }
+
+
+        // showing notification and return back 
+        req.flash('success','New Post added!');
         return res.redirect('back');
 
     }catch(err){
-        console.log('Error in creating a new post',err);
-        return;
+        req.flash('error','Error in creating new post!');
+        return res.redirect('back');
     }
 }
 
@@ -32,15 +47,28 @@ module.exports.destroy= async function(req,res){
 
             // removing all the comments made on the post
             await Comment.deleteMany({post:req.params.id});
+
+            //for ajax request
+            if (req.xhr){
+                return res.status(200).json({
+                    data:{
+                        post_id:req.params.id
+                    },
+                    message:"Post deleted"
+                })
+            }
+
             
+            req.flash('success','Post is deleted with all the comments!');
             return res.redirect('back');
             
         }else{
+            req.flash('error','You are not authorized to delete this post !');
             return res.redirect('back');
         }
     }catch(err){
-        console.log('Error in finding the post',err);
-        return;
+        req.flash('error','Error in finding the post!');
+        return res.redirect('back');
     }
     
 }

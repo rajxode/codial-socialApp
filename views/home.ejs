@@ -8,7 +8,7 @@
     <% if (locals.user) { %>
 
         <!-- form to get user data -->
-        <form action="/post/create" id="post-feed" method="post">
+        <form action="/post/create" id="post-form" method="post">
             <textarea name="content" cols="30" rows="3" placeholder="Type here..."></textarea>
             <input type="submit" value="Post">
         </form>
@@ -21,14 +21,10 @@
 
                 <!-- displaying all the posts -->
                 <% for (post of posts) { %>
-
-                    <li>
                         
-                        <!-- adding post's partial file -->
-                        <%- include('_post') %>
+                    <!-- adding post's partial file -->
+                    <%- include('_post') %>
 
-                    </li>
-                
                 <% } %>
                 
             </ul>
@@ -59,3 +55,5 @@
 
     <% } %>
  </section>
+
+ <script src="/js/home_js.js"></script>
