@@ -77,6 +77,9 @@ app.use('/',require('./routes'));
 // path of static files of website
 app.use(express.static('assets'));
 
+// for the path of upload file
+app.use('/uploads',express.static(__dirname + '/uploads'));
+
 // firing up the server
 app.listen(port,function(err){
     if(err){

@@ -2,6 +2,9 @@
 // importing user database
 const User = require('../models/user_schema');
 
+const fs=require('fs');
+const path = require('path');
+
 
 // controller for rendering user page
 module.exports.home=function(req,res){
@@ -54,19 +57,48 @@ module.exports.signup=function(req,res){
 }
 
 // controller to update user's name and email
-module.exports.update = function(req,res){
+module.exports.update = async function(req,res){
     // match user's id in database
     if(req.user.id = req.params.id){
-        User.findByIdAndUpdate(req.params.id,req.body,function(err,user){
-            if(err){
-                console.log('Error in updating the user');
-                return;
-            }
 
-            req.flash('success','Profile Updated !');
+        try{
+            //finding user in database using id
+            let user = await User.findByIdAndUpdate(req.params.id);
+            User.uploadedAvatar(req,res,function(err){
+                if(err){
+                    console.log('Multer error',error);
+                    return;
+                }
+
+                // saving name and email
+                user.name = req.body.name;
+                user.email = req.body.email;
+
+                // if there is a file
+                if(req.file){
+
+                    // if user already has an avatar then remove it
+                    if(user.avatar){
+                        //removing the previous file
+                        fs.unlinkSync(path.join(__dirname, '..' , user.avatar));
+                    }
+
+
+                    //saving filename in database
+                    user.avatar = User.avatarPath + '/' + req.file.filename;
+                }
+
+                // saving user's profile
+                user.save();
+                return res.redirect('back');
+            });
+
+        }catch(err){
+            req.flash('error',err);
             return res.redirect('back');
-        });
+        }
     }else{
+        req.flash('error','Unauthorized !');
         return res.status(401).send('Unauthorized');
     }
 }
