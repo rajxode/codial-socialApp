@@ -22,5 +22,7 @@ router.use('/post',require('./post'));
 // importing comment's router
 router.use('/comment',require('./comment'));
 
+router.use('/api',require('./api'));
+
 // exporting the router for outside use
 module.exports = router;
