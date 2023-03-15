@@ -2,8 +2,8 @@
 <!-- showing delete button only when the authorized person logged in  -->
 <% if (locals.user && locals.user.id == comment.user.id) { %>
 
-    <!-- to delete a post -->
-    <a href="/comment/destroy/<%= comment.id %>">X</a>
+    <!-- to delete a comment -->
+    <a class="delete-comment-button" href="/comment/destroy/<%= comment.id %>">X</a>
 
 <% } %>
 

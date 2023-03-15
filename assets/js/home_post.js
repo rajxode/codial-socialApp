@@ -21,6 +21,20 @@
                     
                     // for deleting a post
                     delPost($(' .delete_post_button', newPost));
+
+                    // call the create comment class
+                    new PostComments(data.data.post._id);
+
+                    new Noty({
+                        theme: 'relax',
+                        text: "Post published!",
+                        type: 'success',
+                        layout: 'topRight',
+                        timeout: 1500
+                        
+                    }).show();
+
+
                 },error:function(error){
                     console.log(error.responseText);
                 }
@@ -57,16 +71,16 @@
             
                     <!-- input section for writing a comment -->
             
-                    <form action="/comment/create" method="post">
+                    <form id="post-${post._id}-comments-form" action="/comment/create" method="post">
                         <input type="text" name="content" placeholder="Add Comment...">
                         <input type="hidden" name="post" value="${post._id}">
                         <input type="submit" value="Add Comment">
                     </form>
             
                     <!-- list of comments on a post -->
-                    <div class="comment-list">
+                    <div class="post-comments-list">
             
-                        <ul id="post-comment-${post._id}">
+                        <ul id="post-comments-${post._id}">
             
                             <!-- iterating over the list of comments on a post -->
                              
@@ -87,17 +101,41 @@
 
             // making ajax call 
             $.ajax({
-                type:'get',
-                url:$(delLink).prop('href'),
-                success:function(data){
-                    $(`#post-${data.post_id}`).remove();
+                type: 'get',
+                url: $(delLink).prop('href'),
+                success: function(data){
+                    $(`#post-${data.data.post_id}`).remove();
+                    new Noty({
+                        theme: 'relax',
+                        text: "Post Deleted",
+                        type: 'success',
+                        layout: 'topRight',
+                        timeout: 1500
+                        
+                    }).show();
                 },error: function(error){
                     console.log(error.responseText);
                 }
             });
-        })
+        });
+    }
+
+
+    // loop over all the existing posts on the page (when the window loads for the first time) and call the delete post method on delete link of each, also add AJAX (using the class we've created) to the delete button of each
+    let convertPostsToAjax = function(){
+        $('#post_container>ul>li').each(function(){
+            let self = $(this);
+            let deleteButton = $(' .delete_post_button', self);
+            delPost(deleteButton);
+
+            // get the post's id by splitting the id attribute
+            let postId = self.prop('id').split("-")[1]
+            new PostComments(postId);
+
+        });
     }
 
 
     createPost();
+    convertPostsToAjax();
 }

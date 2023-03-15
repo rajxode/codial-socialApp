@@ -36,9 +36,9 @@
 
 
         <!-- list of comments on a post -->
-        <div class="comment-list">
+        <div class="post-comments-list">
 
-            <ul>
+            <ul id="post-comments-<%= post._id %>">
 
                 <!-- iterating over the list of comments on a post -->
                 <% for (comment of post.comments) { %>

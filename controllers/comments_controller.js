@@ -1,6 +1,9 @@
 // importing schema of both comment and post
 const Comment = require('../models/comment_schema');
 const Post = require("../models/post_schema");
+const commentsMailer = require('../mailers/comments_mailer');
+
+
 
 // creating a comment
 module.exports.create= async function(req,res){
@@ -24,10 +27,27 @@ module.exports.create= async function(req,res){
                 // saving post (updating)
                 post.save();
 
+
+                comment = await comment.populate('user', 'name email');
+                // execPopulate();
+                commentsMailer.newComment(comment);
+
+                // checking ajax request
+                if (req.xhr){
+                    return res.status(200).json({
+                        data: {
+                            comment: comment
+                        },
+                        message: "Post created!"
+                    });
+                }
+    
+
                 req.flash('success','Added new comment on the post!');        
                 return res.redirect('/');
         }
     }catch(err){
+        console.log(err);
         req.flash('error','Error in posting the comment!');
         return res.redirect('back');
     }
@@ -48,6 +68,17 @@ module.exports.destroy = async function(req,res){
 
             comment.remove();
             let post = Post.findByIdAndUpdate(postId,{$pull:{comments:req.params.id}});
+
+
+            // send the comment id which was deleted back to the views
+            if (req.xhr){
+                return res.status(200).json({
+                    data: {
+                        comment_id: req.params.id
+                    },
+                    message: "Post deleted"
+                });
+            }
             
             req.flash('success','Comment deleted !');
             return res.redirect('back');
