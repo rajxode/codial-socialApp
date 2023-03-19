@@ -1,0 +1,20 @@
+#home_body{
+    height: 88vh;
+
+    #post-section{
+        display: inline-block;
+        width: 75%;
+        border-right: 1px solid rgb(163, 163, 163);
+        height: 100%;
+        padding-left: 2%;   
+    }
+    
+    #friend_list{
+        display: inline-block;
+        width: 18%;
+        vertical-align: top;
+        height:100%;
+    }
+
+}
+

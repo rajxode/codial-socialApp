@@ -18,6 +18,14 @@ const postSchema = new mongoose.Schema({
             type:mongoose.Schema.Types.ObjectId,
             ref:'Comment'
         }
+    ],
+
+    // all the like on the post
+    likes:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'Like'
+        }
     ]
 },{
     // to get the time of creation and update

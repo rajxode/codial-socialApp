@@ -3,6 +3,9 @@ const nodemailer = require('../config/nodemailer');
 // another way of exporting a function 
 exports.newComment = (comment)=>{
     
+    // path of html template for mail
+    let htmlString = nodemailer.renderTemplate({comment:comment},'/comment/new_comment.ejs');
+
     // sending mail
     nodemailer.transporter.sendMail({
         // from account of website
@@ -10,7 +13,7 @@ exports.newComment = (comment)=>{
         // to the user who comment
         to:comment.user.email,
         subject:'New comment posted',
-        html:'<h1>Your comment have been posted !</h1>'
+        html:htmlString
     },  (err,info)=>{
         if(err){
             console.log('Error in sending the mail',err);

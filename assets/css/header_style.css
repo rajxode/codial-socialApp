@@ -1,0 +1,20 @@
+#header_container {
+  background-color: #9494f3;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: white;
+  height: 45px;
+  overflow: hidden; }
+  #header_container #heading {
+    font-size: 1.4rem;
+    margin: 0 0 5px 10px; }
+  #header_container li {
+    display: inline;
+    text-decoration: none;
+    margin: 0 10px;
+    float: right;
+    font-size: 1.2rem; }
+    #header_container li a {
+      color: inherit; }

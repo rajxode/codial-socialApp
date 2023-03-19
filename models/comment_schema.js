@@ -20,7 +20,15 @@ const commentSchema = new mongoose.Schema({
     post:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Post'
-    }
+    },
+
+    // all the likes on the comment
+    likes:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'Like'
+        }
+    ]
 },{
     // time stamps to keep record of time 
     timestamps:true

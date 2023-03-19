@@ -3,6 +3,8 @@ const Comment = require('../models/comment_schema');
 const Post = require("../models/post_schema");
 const commentsMailer = require('../mailers/comments_mailer');
 
+const queue = require('../config/kue');
+const commentEmailWorker = require('../workers/comment_email_worker');
 
 
 // creating a comment
@@ -27,10 +29,19 @@ module.exports.create= async function(req,res){
                 // saving post (updating)
                 post.save();
 
-
+                // populating comments for it's info
                 comment = await comment.populate('user', 'name email');
-                // execPopulate();
-                commentsMailer.newComment(comment);
+                
+                // creating a job for comment worker in queue
+                let job = queue.create('emails',comment).save(function(err){
+                    if(err){
+                        console.log('Error in creating a queue',err);
+                        return;
+                    }
+
+                    console.log('job enqueued',job.id);
+                });
+                // commentsMailer.newComment(comment);
 
                 // checking ajax request
                 if (req.xhr){

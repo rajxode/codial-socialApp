@@ -1,0 +1,26 @@
+#header_container{
+    background-color: rgb(148, 148, 243);
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    color: white;
+    height: 45px;
+    overflow: hidden;
+
+    #heading{
+        font-size: 1.4rem;
+        margin: 0 0 5px 10px;
+    }
+
+    li{
+        display: inline;
+        text-decoration: none;
+        margin: 0 10px;
+        float: right;
+        font-size: 1.2rem;
+        a{
+            color: inherit;
+        }
+    }
+}

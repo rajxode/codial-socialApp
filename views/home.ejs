@@ -1,59 +1,65 @@
 <link rel="stylesheet" href="/css/homeStyle.css">
 
-<h1>Hello</h1>
+<div id="home_body">
 
- <section id="post-section">
+    <section id="post-section">
 
-    <!-- checking if user is logged in  -->
-    <% if (locals.user) { %>
-
-        <!-- form to get user data -->
-        <form action="/post/create" id="post-form" method="post">
-            <textarea name="content" cols="30" rows="3" placeholder="Type here..."></textarea>
-            <input type="submit" value="Post">
-        </form>
-
-
-        <!-- to display posts -->
-        <div id="post_container">
-
-            <ul>
-
-                <!-- displaying all the posts -->
-                <% for (post of posts) { %>
-                        
-                    <!-- adding post's partial file -->
-                    <%- include('_post') %>
-
-                <% } %>
-                
-            </ul>
-
-        </div>
-
-    <% } %>
-
+        <h1>Hello</h1>
     
- </section>
+        <!-- checking if user is logged in  -->
+        <% if (locals.user) { %>
+    
+            <!-- form to get user data -->
+            <form action="/post/create" id="post-form" method="post">
+                <textarea name="content" cols="30" rows="3" placeholder="Type here..."></textarea>
+                <input type="submit" value="Post">
+            </form>
+    
+    
+            <!-- to display posts -->
+            <div id="post_container">
+    
+                <ul>
+    
+                    <!-- displaying all the posts -->
+                    <% for (post of posts) { %>
+                            
+                        <!-- adding post's partial file -->
+                        <%- include('_post') %>
+    
+                    <% } %>
+                    
+                </ul>
+    
+            </div>
+    
+        <% } %>
+    
+        
+     </section>
+    
+    
+     <!-- to show all the users -->
+     <section id="friend_list">
+    
+        <% if (locals.user) { %>
+    
+            <h4>Friends</h4>
+    
+            <!-- list of user in database -->
+            <% for (user of all_users) { %>
+                <p>
+                    <!-- link of user's profile -->
+                    <a href="/user/user-profile/<%= user.id %>"><%= user.name %></a>
+                </p>
+    
+            <% } %>    
+    
+        <% } %>
+     </section>
+     <script src="/js/home_post_comments.js"></script>
+     <script src="/js/home_post.js"></script>
 
+</div>
 
- <!-- to show all the users -->
- <section id="friend_list">
-
-    <% if (locals.user) { %>
-
-        <h4>Friends</h4>
-
-        <!-- list of user in database -->
-        <% for (user of all_users) { %>
-            <p>
-                <!-- link of user's profile -->
-                <a href="/user/user-profile/<%= user.id %>"><%= user.name %></a>
-            </p>
-
-        <% } %>    
-
-    <% } %>
- </section>
- <script src="/js/home_post_comments.js"></script>
- <script src="/js/home_post.js"></script>
+ 

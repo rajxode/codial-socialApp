@@ -1,30 +1,36 @@
+<link rel="stylesheet" href="/css/header_style.css">
 
-<p>
+<div id="header_container">
 
-    <% if (locals.user) { %>
+    <p>
 
-        <li>
-            <%= user.name %>
-        </li>
+        <% if (locals.user) { %>
+    
+            <li>
+                <%= user.name %>
+            </li>
+    
+            <li>
+                <a href="/user/sign-out">Sign Out</a>
+            </li>
+    
+        <% } else { %>
+    
+            <li>
+                <a href="/user/signup">Sign Up</a>
+            </li>
+    
+            <li>
+                <a href="/user/signin">Sign In</a>
+            </li>
+    
+        <% } %>
+    
+    </p>
+    
+    <p id="heading">
+        Social Media
+    </p>
 
-        <li>
-            <a href="/user/sign-out">Sign Out</a>
-        </li>
+</div>
 
-    <% } else { %>
-
-        <li>
-            <a href="/user/signup">Sign Up</a>
-        </li>
-
-        <li>
-            <a href="/user/signin">Sign In</a>
-        </li>
-
-    <% } %>
-
-</p>
-
-<p>
-    This is the header
-</p>

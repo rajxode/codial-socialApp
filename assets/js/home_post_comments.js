@@ -8,9 +8,12 @@ class PostComments{
     // constructor is used to initialize the instance of the class whenever a new instance is created
     constructor(postId){
         this.postId = postId;
+        //single post item
         this.postContainer = $(`#post-${postId}`);
+        // form for submitting a new comment
         this.newCommentForm = $(`#post-${postId}-comments-form`);
 
+        // for creating new comment
         this.createComment(postId);
 
         let self = this;
@@ -27,13 +30,17 @@ class PostComments{
             e.preventDefault();
             let self = this;
 
+            // making ajax request
             $.ajax({
                 type: 'post',
                 url: '/comment/create',
                 data: $(self).serialize(),
                 success: function(data){
+                    // storing comment's data
                     let newComment = pSelf.newCommentDom(data.data.comment);
+                    // appending comment in the comment list
                     $(`#post-comments-${postId}`).prepend(newComment);
+                    // adding delete button in all comments
                     pSelf.deleteComment($(' .delete-comment-button', newComment));
 
                     new Noty({
