@@ -16,3 +16,24 @@
     <!-- user who commented  -->
     <%= comment.user.name %>
 </p>
+
+
+ <br>
+
+ <!-- for likes on the comment -->
+ <small>
+    <!-- if user is logged in -->
+    <% if(locals.user) { %>
+
+        <!-- show likes with a link -->
+        <a class="toggle-like-button" data-like="<%= comment.likes.length %>" href="/likes/toggle/?id=<%=comment._id%>&type=Comment">
+            <%= comment.likes.length %>Likes
+        </a>
+
+        <!-- if user is signed out -->
+    <% } else { %>
+        <!-- just show number of likes -->
+        <%= comment.likes.length %>Likes
+
+    <% } %>    
+</small>

@@ -5,6 +5,9 @@ const User = require('../models/user_schema');
 const fs=require('fs');
 const path = require('path');
 
+const resetMailer = require('../mailers/resetPassword_mailer');
+const { findOne } = require('../models/user_schema');
+
 
 // controller for rendering user page
 module.exports.home=function(req,res){
@@ -161,4 +164,37 @@ module.exports.signout=function(req,res){
         req.flash('success','You have logged out successfully');
         return res.redirect('/user/signin');
       });
+}
+
+
+// when user click forget password take user to reset password page
+module.exports.forgetPassword=function(req,res){
+    
+    return res.render('reset_password',{
+        title:"Social Media | Reset Password"
+    });
+}
+
+
+// to send user email for reseting the password
+module.exports.confirmEmail=async function(req,res){
+    try {
+        
+        let user = await User.findOne({email:req.body.email});
+
+        if(!user){
+            console.log('Entered Email address is not registered');
+            return;
+        }
+
+        resetMailer.resetPassword(user);
+        return res.render('instruction_page',{
+            title:'Social | confirm email'
+        });
+
+    } catch (err) {
+        console.log('error in email confirmation',err);
+        return;
+    }
+
 }

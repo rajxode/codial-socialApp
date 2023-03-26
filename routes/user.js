@@ -45,5 +45,11 @@ router.get('/auth/google',passport.authenticate('google', {scope:['profile','ema
 router.get('/auth/google/callback',passport.authenticate('google', {failureRedirect: '/user/signin'}), userController.create_session);
 
 
+// for rending reset password page
+router.get('/forget-password',userController.forgetPassword);
+
+
+router.post('/confirm-email',userController.confirmEmail);
+
 // exporting router for outside use
 module.exports = router;

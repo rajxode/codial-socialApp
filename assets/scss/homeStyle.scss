@@ -7,6 +7,7 @@
         border-right: 1px solid rgb(163, 163, 163);
         height: 100%;
         padding-left: 2%;   
+        position: relative;
     }
     
     #friend_list{
@@ -14,6 +15,14 @@
         width: 18%;
         vertical-align: top;
         height:100%;
+
+        #friends{
+            height: 40%;
+        }
+
+        #all_users{
+            height: 60%;
+        }
     }
 
 }

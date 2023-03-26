@@ -1,0 +1,38 @@
+#chatBox {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background-color: #fffdfd;
+  height: 250px;
+  width: 200px;
+  box-shadow: 0px 0px 2px 2px #e9dddd; }
+  #chatBox #box {
+    height: 84%; }
+  #chatBox #input_box {
+    border-top: 1px solid pink; }
+    #chatBox #input_box #chat-message {
+      width: 72%;
+      margin: 0px;
+      border: none;
+      border-right: 2px solid pink; }
+    #chatBox #input_box #chat-message:focus {
+      outline: none; }
+    #chatBox #input_box #send-button {
+      width: 25%;
+      margin: 0 0 0 -5px;
+      border: none; }
+  #chatBox ul {
+    list-style-type: none;
+    padding: 0; }
+    #chatBox ul li {
+      margin: 4px; }
+    #chatBox ul .friends_message {
+      background-color: #f8c6f0;
+      text-align: left; }
+      #chatBox ul .friends_message span {
+        display: inline-block; }
+    #chatBox ul .my_message {
+      background-color: #c0c0f8;
+      text-align: right; }
+      #chatBox ul .my_message span {
+        display: inline-block; }

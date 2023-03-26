@@ -1,0 +1,66 @@
+#chatBox{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background-color: #fffdfd;
+    height: 250px;
+    width: 200px;
+    box-shadow: 0px 0px 2px 2px rgb(233, 221, 221);
+
+    #box{
+        height: 84%;
+    };
+
+
+    #input_box{
+
+        border-top: 1px solid pink;
+
+        #chat-message{
+            width: 72%;
+            margin: 0px;
+            border: none;
+            border-right: 2px solid pink;
+        }
+
+        #chat-message:focus{
+            outline:none;
+        }
+
+        #send-button{
+            width: 25%;
+            margin: 0 0 0 -5px;
+            border: none;
+        }
+    }
+
+    ul{
+        list-style-type: none;
+        padding: 0;
+
+        li{
+            margin: 4px;
+        }
+
+        .friends_message{
+            background-color: rgb(248, 198, 240);
+            text-align:left;
+            // display: block;
+
+            span{
+                display: inline-block;
+            }
+        }
+    
+        .my_message{
+            background-color: rgb(192, 192, 248);
+            text-align: right;
+            // display: block;
+
+            span{
+                display: inline-block;
+            }
+        }
+    }
+    
+}

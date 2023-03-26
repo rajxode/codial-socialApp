@@ -5,9 +5,14 @@
     width: 75%;
     border-right: 1px solid #a3a3a3;
     height: 100%;
-    padding-left: 2%; }
+    padding-left: 2%;
+    position: relative; }
   #home_body #friend_list {
     display: inline-block;
     width: 18%;
     vertical-align: top;
     height: 100%; }
+    #home_body #friend_list #friends {
+      height: 40%; }
+    #home_body #friend_list #all_users {
+      height: 60%; }

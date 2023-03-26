@@ -1,6 +1,6 @@
 const Post = require("../models/post_schema");
 const Comment =  require('../models/comment_schema');
-
+const Like = require('../models/like_schema');
 
 // creating new post 
 module.exports.create=async function(req,res){
@@ -42,6 +42,11 @@ module.exports.destroy= async function(req,res){
         
         // .id convert id into string
         if(post.user == req.user.id){
+
+            // for deleting all the likes on the post and the comments of that post
+            await Like.deleteMany({likeAble: post,onModel:'Post'});
+            await Like.deleteMany({_id: {$in: post.comments}});
+
             // removing the post
             post.remove();
 

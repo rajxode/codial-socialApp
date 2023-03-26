@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="/css/homeStyle.css">
 
-<div id="home_body">
+<div id="home_body">   
 
     <section id="post-section">
 
@@ -18,7 +18,7 @@
     
             <!-- to display posts -->
             <div id="post_container">
-    
+
                 <ul>
     
                     <!-- displaying all the posts -->
@@ -34,6 +34,8 @@
             </div>
     
         <% } %>
+
+        <%- include('_chatBox') %>
     
         
      </section>
@@ -41,24 +43,56 @@
     
      <!-- to show all the users -->
      <section id="friend_list">
-    
-        <% if (locals.user) { %>
-    
+
+        <div id="friends">
+
             <h4>Friends</h4>
+
+        </div>
+
+        <hr>
+
+        <div id="all_users">
+
+            <% if (locals.user) { %>
     
-            <!-- list of user in database -->
-            <% for (user of all_users) { %>
-                <p>
-                    <!-- link of user's profile -->
-                    <a href="/user/user-profile/<%= user.id %>"><%= user.name %></a>
-                </p>
+                <h4>All Users</h4>
+        
+                <!-- list of user in database -->
+                <% for (users of all_users) { %>
+                    <p>
+                        <!-- link of user's profile -->
+                        <a href="/user/user-profile/<%= user.id %>"><%= users.name %></a>
+                    </p>
+        
+                <% } %>   
+        
+            <% } %>
+
+        </div>
     
-            <% } %>    
-    
-        <% } %>
      </section>
+
      <script src="/js/home_post_comments.js"></script>
      <script src="/js/home_post.js"></script>
+
+     <script src="/js/toggle_likes.js"></script>
+     <script>
+        $('.toggle-like-button').each(function(){
+            let self = this;
+            let toggleLike = new ToggleLike(self);
+        });
+     </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js"></script>
+    
+    <script src="/js/chat_engine.js"></script>
+    <% if (locals.user) { %>
+    <script>
+        // using class created for chat engine to creating a connection with server
+        new ChatEngine('chatBox','<%= user.email %>');
+    </script>
+    <% } %>
 
 </div>
 

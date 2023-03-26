@@ -32,6 +32,22 @@ const myMware=require('./config/middleware');
 // creating app variable
 const app = express();
 
+
+// setup the chat server to be used with socket.io
+const chatServer = require('http').createServer(app);
+const chatSockets = require('./config/chat_socket').chatSockets(chatServer);
+// chatServer.listen(5000,function(err){
+//     if(err){
+//         console.log('Error in connecting with socket',err);
+//         return;
+//     }
+//     console.log('chat server is listening on port 5000');
+// });
+
+
+
+
+
 app.use(express.urlencoded());
 
 // for cookies
@@ -87,10 +103,10 @@ app.use(express.static('assets'));
 app.use('/uploads',express.static(__dirname + '/uploads'));
 
 // firing up the server
-app.listen(port,function(err){
+chatServer.listen(port,function(err){
     if(err){
         console.log(`Error : ${err}`);
         return;
     }
-    console.log(`Server is up and running on port ${port}`)
+    console.log(`Server is up and running on port ${port}`);
 })

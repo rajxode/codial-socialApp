@@ -24,5 +24,7 @@ router.use('/comment',require('./comment'));
 
 router.use('/api',require('./api'));
 
+router.use('/likes',require('./like'));
+
 // exporting the router for outside use
 module.exports = router;
