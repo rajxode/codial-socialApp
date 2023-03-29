@@ -4,6 +4,8 @@ const User = require('../../../models/user_schema');
 // json web token to create token
 const jwt = require('jsonwebtoken');
 
+const env = require('../../../config/environment');
+
 // creating session token
 module.exports.creatSession = async function(req,res){
 
@@ -23,7 +25,7 @@ module.exports.creatSession = async function(req,res){
             message: 'Sign in successfully, here is your token',
             // creating token using secret key with expiry time
             data:{
-                token: jwt.sign(user.toJSON(), 'secretCode', {expiresIn:'100000'})
+                token: jwt.sign(user.toJSON(), env.jwt_secretKey, {expiresIn:'100000'})
             }
         })
     }catch(err){

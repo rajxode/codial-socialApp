@@ -5,20 +5,12 @@ const ejs = require('ejs');
 const path = require('path');
 const { mainModule } = require('process');
 
+const env = require('./environment');
+
 
 
 // part responsible for sending the email
-let transporter = nodemailer.createTransport({
-    // service used to send email
-    service: 'gmail',
-    host:'smtp.gmail.com',
-    port:587,
-    secure:false,
-    auth:{
-        user:'socialmed095@gmail.com',
-        pass:'cmijdudewjbiskvn'
-    }
-});
+let transporter = nodemailer.createTransport(env.smtp);
 
 
 // it defines where the files will be stored for html emails

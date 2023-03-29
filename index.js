@@ -1,9 +1,17 @@
 // importing express 
 const express = require('express');
 
+require('dotenv').config();
+
+// to include all the keys and paths
+const env = require('./config/environment');
+
+
+const logger = require('morgan');
+
 // importing cookie parser
 const cookieParser = require('cookie-parser');
-
+ 
 // defining port number for website
 const port = 1000;
 
@@ -36,16 +44,6 @@ const app = express();
 // setup the chat server to be used with socket.io
 const chatServer = require('http').createServer(app);
 const chatSockets = require('./config/chat_socket').chatSockets(chatServer);
-// chatServer.listen(5000,function(err){
-//     if(err){
-//         console.log('Error in connecting with socket',err);
-//         return;
-//     }
-//     console.log('chat server is listening on port 5000');
-// });
-
-
-
 
 
 app.use(express.urlencoded());
@@ -55,6 +53,10 @@ app.use(cookieParser());
 
 // importing layouts 
 const expressLayouts =  require('express-ejs-layouts');
+
+// to use logger/morgan
+app.use(logger(env.morgan.mode , env.morgan.options));
+
 
 // using layouts
 app.use(expressLayouts);
@@ -72,7 +74,7 @@ app.set('views','./views');
 // middleware for passport and cookie session
 app.use(session({
     name:'SocialMedia',
-    secret:'encryptedsecretkey',
+    secret:env.session_cookie_key,
     saveUninitialized:false,
     resave:false,
     // expiration duration for cookie
@@ -97,10 +99,11 @@ app.use(myMware.setFlash);
 app.use('/',require('./routes'));
 
 // path of static files of website
-app.use(express.static('assets'));
+app.use(express.static(env.asset_path));
 
 // for the path of upload file
 app.use('/uploads',express.static(__dirname + '/uploads'));
+
 
 // firing up the server
 chatServer.listen(port,function(err){
