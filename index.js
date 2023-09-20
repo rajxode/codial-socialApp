@@ -1,12 +1,13 @@
 // importing express 
 const express = require('express');
 
+// for making environment variables
 require('dotenv').config();
 
 // to include all the keys and paths
 const env = require('./config/environment');
 
-
+// for storing logs 
 const logger = require('morgan');
 
 // importing cookie parser
@@ -82,7 +83,7 @@ app.use(session({
         maxAge:(1000 * 60 * 100)
     },
     // to store session cookie
-    store: MongoStore.create({ mongoUrl: 'mongodb://127.0.0.1/SocialMedia_DB' }) 
+    store: MongoStore.create({ mongoUrl: `mongodb://127.0.0.1/${env.db}` }) 
 }));
 
 app.use(passport.initialize());
@@ -94,7 +95,7 @@ app.use(passport.setAuthenticatedUser);
 // connect-flash middleware
 app.use(flash());
 app.use(myMware.setFlash);
-
+ 
 // setting up routes
 app.use('/',require('./routes'));
 

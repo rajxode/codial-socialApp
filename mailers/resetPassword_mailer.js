@@ -9,7 +9,7 @@ exports.resetPassword = (user)=>{
     // sending mail
     nodemailer.transporter.sendMail({
         // from account of website
-        from:'socialmed095@gmail.com',
+        from:process.env.MAIL_SENDER,
         // to the user who comment
         to:user.email,
         subject:'Reset Your Password',

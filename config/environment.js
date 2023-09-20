@@ -20,13 +20,13 @@ const accessLogStream = rfs.createStream('access.log',{
 // variables for development mode
 const development = {
     name:'development',
-    asset_path:process.env.SOCIAL_ASSETS_PATH,
-    session_cookie_key:process.env.SOCIAL_SESSION_COOKIE_KEY,
+    asset_path:'./assets',
+    session_cookie_key:'sessionSecretKey',
     db:process.env.SOCIAL_DATABASE,
     smtp:{
         service: 'gmail',
         host:'smtp.gmail.com',
-        port:process.env.SOCIAL_SMTP_PORT,
+        port:587,
         secure:false,
         auth:{
             user:process.env.SOCIAL_SMTP_USER,

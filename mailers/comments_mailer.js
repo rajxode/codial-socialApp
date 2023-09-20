@@ -9,7 +9,7 @@ exports.newComment = (comment)=>{
     // sending mail
     nodemailer.transporter.sendMail({
         // from account of website
-        from:'socialmed095@gmail.com',
+        from:process.env.MAIL_SENDER,
         // to the user who comment
         to:comment.user.email,
         subject:'New comment posted',
